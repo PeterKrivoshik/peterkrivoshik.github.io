@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: #0C152D;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.row > .column {
+  padding: 4px 2px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  text-align: center;
+  float: left;
+  width: 20%;
+  max-height: 320px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 20px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #000000;
+  margin: auto;
+  padding: 0;
+  max-width: 850px;
+  text-align: center;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mySlides {
+  display: none;
+}
+
+.cursor {
+  cursor: pointer
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  width: auto;
+
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev{
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+img {
+  margin-bottom: -4px;
+  max-height: 800px;
+  max-width: 800px;
+  width: auto;
+}
+
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+.demo {
+  opacity: 0.6;
+  max-width: 170px;
+  padding: 3px 3px;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+  padding: 3px 3px;
+  max-width: 170px;
+}
+
+img.hover-shadow {
+  transition: 0.3s
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+</style>
+<body>
+<h1 style="font-family: Arial, Helvetica, sans-serif; text-align:center; color: white">Peter Krivoshik - Paintings</h1>
+<div class="wrapper">
+  <button id="goBack" type="button" onclick="window.location.href='http://eve.kean.edu/~krivoshp/Artwork.html'">Back To Artwork</button>
+  <button id="goBack" type="button" onclick="window.location.href='http://eve.kean.edu/~krivoshp/index.html'">Back To Homepage</button>
+</div>
+
+
+<div class="row" style="padding-top: 20px">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt01.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt02.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(2)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt03.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(3)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt04.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(4)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt07.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(5)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt15.jpg" style="max-width:200px; max-height: 200px; padding-top: 30px;" onclick="openModal();currentSlide(6)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt05.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(7)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt06.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(8)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt09.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(9)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt10.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(10)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt11.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(11)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt12.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(12)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt13.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(13)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt14.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(14)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt16.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(15)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt19.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(16)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt22.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(17)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt21.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(18)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt18.JPG" style="max-width:200px; max-height: 200px;  padding-top: 30px;" onclick="openModal();currentSlide(19)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt20.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(20)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt17.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(21)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt08.jpg" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(22)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt23.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(23)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt24.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(24)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt25.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(25)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt26.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(26)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt27.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(27)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt28.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(28)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt29.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(29)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt30.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(30)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt31.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(31)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt32.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(32)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt33.JPG" style="max-width:200px; max-height: 200px; padding-top: 20px;" onclick="openModal();currentSlide(33)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt34.JPG" style="max-width:200px; max-height: 200px; padding-top: 20px;" onclick="openModal();currentSlide(34)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt35.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(35)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt36.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(36)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt37.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(37)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt38.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(38)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt39.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(39)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt40.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(40)" class="hover-shadow cursor"></div>
+</div>
+<div class="row">
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt41.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(41)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt42.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(42)" class="hover-shadow cursor"></div>
+  <div class="column"><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt43.JPG" style="max-width:200px; max-height: 200px;" onclick="openModal();currentSlide(43)" class="hover-shadow cursor"></div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+    <div class="mySlides"><div class="numbertext">1 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt01.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">2 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt02.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">3 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt03.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">4 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt04.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">5 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt07.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">6 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt15.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">7 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt05.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">8 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt06.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">9 / 43</div> <img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt09.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">10 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt10.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">11 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt11.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">12 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt12.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">13 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt13.jpg" style="width:auto"></div>    
+    <div class="mySlides"><div class="numbertext">14 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt14.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">15 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt16.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">16 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt19.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">17 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt22.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">18 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt21.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">19 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt18.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">20 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt20.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">21 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt17.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">22 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt08.jpg" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">23 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt23.JPG" style="width:auto"></div>    
+    <div class="mySlides"><div class="numbertext">24 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt24.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">25 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt25.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">26 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt26.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">27 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt27.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">28 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt28.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">29 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt29.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">30 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt30.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">31 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt31.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">32 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt32.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">33 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt33.JPG" style="width:auto"></div>    
+    <div class="mySlides"><div class="numbertext">34 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt34.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">35 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt35.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">36 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt36.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">37 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt37.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">38 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt38.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">39 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt39.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">40 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt40.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">41 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt41.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">42 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt42.JPG" style="width:auto"></div>
+    <div class="mySlides"><div class="numbertext">43 / 43</div><img src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt43.JPG" style="width:auto"></div>    
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+<div class="caption-container">
+    <p id="caption"></p>
+  </div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt01.jpg" style="height:170px; width:auto;" onclick="currentSlide(1)" alt="1"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt02.jpg" style="width:auto" onclick="currentSlide(2)" alt="2"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt03.jpg" style="width:auto" onclick="currentSlide(3)" alt="3"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt04.jpg" style="width:auto" onclick="currentSlide(4)" alt="4"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt07.jpg" style="width:auto" onclick="currentSlide(5)" alt="5"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt15.jpg" style="width:auto" onclick="currentSlide(6)" alt="6"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt05.jpg" style="width:auto" onclick="currentSlide(7)" alt="7"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt06.jpg" style="width:auto" onclick="currentSlide(8)" alt="8"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt09.jpg" style="width:auto" onclick="currentSlide(9)" alt="9"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt10.jpg" style="width:auto" onclick="currentSlide(10)" alt="10"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt11.jpg" style="height:200px; width:auto;" onclick="currentSlide(11)" alt="11"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt12.jpg" style="height:200px; width:auto" onclick="currentSlide(12)" alt="12"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt13.jpg" style="height:200px; width:auto;" onclick="currentSlide(13)" alt="13"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt14.jpg" style="height:200px; width:auto" onclick="currentSlide(14)" alt="14"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt16.jpg" style="height:200px; width:auto" onclick="currentSlide(15)" alt="15"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt19.JPG" style="height:190px; width:auto;" onclick="currentSlide(16)" alt="16"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt22.JPG" style="height:220px; width:auto;" onclick="currentSlide(17)" alt="17"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt21.JPG" style="height:200px; width:auto;" onclick="currentSlide(18)" alt="18"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt18.JPG" style="height:100px; width:auto" onclick="currentSlide(19)" alt="19"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt20.JPG" style="height:200px; width:auto;" onclick="currentSlide(20)" alt="20"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt17.jpg" style="width:auto" onclick="currentSlide(21)" alt="21"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt08.jpg" style="width:auto" onclick="currentSlide(22)" alt="22"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt23.JPG" style="width:auto" onclick="currentSlide(23)" alt="23"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt24.JPG" style="width:auto" onclick="currentSlide(24)" alt="24"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt25.JPG" style="width:auto" onclick="currentSlide(25)" alt="25"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt26.JPG" style="width:auto" onclick="currentSlide(26)" alt="26"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt27.JPG" style="width:auto" onclick="currentSlide(27)" alt="27"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt28.JPG" style="height:220px; width:auto" onclick="currentSlide(28)" alt="28"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt29.JPG" style="width:auto" onclick="currentSlide(29)" alt="29"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt30.JPG" style="width:auto" onclick="currentSlide(30)" alt="30"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt31.JPG" style="width:auto" onclick="currentSlide(31)" alt="31"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt32.JPG" style="width:auto" onclick="currentSlide(32)" alt="32"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt33.JPG" style="width:auto" onclick="currentSlide(33)" alt="33"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt34.JPG" style="width:auto" onclick="currentSlide(34)" alt="34"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt35.JPG" style="width:auto" onclick="currentSlide(35)" alt="35"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt36.JPG" style="height:220px; width:auto" onclick="currentSlide(36)" alt="36"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt37.JPG" style="height:220px; width:auto" onclick="currentSlide(37)" alt="37"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt38.JPG" style="width:auto" onclick="currentSlide(38)" alt="38"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt39.JPG" style="width:auto" onclick="currentSlide(39)" alt="39"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt40.JPG" style="width:auto" onclick="currentSlide(40)" alt="40"></div> 
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt41.JPG" style="width:auto" onclick="currentSlide(41)" alt="41"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt42.JPG" style="width:auto" onclick="currentSlide(42)" alt="42"></div>
+    <div class="column"><img class="demo cursor" src="http://eve.kean.edu/~krivoshp/images/Paintings/pnt43.JPG" style="width:auto" onclick="currentSlide(43)" alt="43"></div>
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById('myModal').style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+    
+</body>
+</html>

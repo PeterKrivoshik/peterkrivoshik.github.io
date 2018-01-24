@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <title>HideAndSeek JavaScript - Peter Krivoshik</title>
+  <style>
+    html {
+      background: url(images/BG4.jpg) no-repeat center center fixed;
+      -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #outer
+    {
+    margin: 10px auto;
+    width:100%;
+    text-align: center;
+    }
+    .inner
+    {
+    display: inline-block;
+    }
+    .wrapper
+    {
+      background: url(images/HASicon.png) no-repeat right top;
+      -webkit-background-size: 100%;
+      -moz-background-size: 100%;
+      -o-background-size: 100%;
+      background-size: 100%;
+      float:right;
+      height: 100px;
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class = "wrapper"></div>
+<h1 style="text-align:center; font-family:'Arial Black', Gadget, sans-serif;">
+  <big>HideAndSeek<br></big>
+  <h2 style="margin: -20px auto; padding-bottom: 20px; font-style: italic;">Now In JavaScript Flavor!</h2>
+</h1>
+
+<div id="outer">
+  <div class="inner">Built by Peter Krivoshik</div>
+  <div class="inner"><button id="goBack" type="button" onclick="window.location.href='index.html'">Go To Peter's Homepage</button></div>
+  <div class="inner"><button id="goPro" type="button" onclick="window.location.href='http://eve.kean.edu/~krivoshp/Projects.html#exactline'">What Is HideAndSeek?</button></div>
+</div>
+
+<form id="modeSelect" style="margin: 25px auto">
+  I Have Something To
+  <button id="modeHide" type="button" onclick="wrapHide();">Hide</button>
+  <button id="modeSeek" type="button" onclick="wrapSeek();">Seek</button>
+  <br>
+</form>
+
+<button style="margin: 0 auto; display:none;" id="startOver" type="button" onclick="startOver();">Start Over</button>
+<p id="currentMode" style="display:none;" ></p>
+
+<form id="filein" style="display:none;" >
+  <p>
+    <input id="myfile" name="files[]" multiple="" type="file" /><br>
+    <textarea id="textbox" rows="10" cols="100">Choose A File or Type ClearText Here</textarea>
+  </p>
+</form>
+
+<p id="changeAnything" style="display:none;" >You Can Make Any Last Minute Changes In The Box Above</p>
+
+<form id="passSelect" style="display:none;" >
+  Enter Password When You're Ready<br>
+  <input id="enterPass" type="text" name="password">
+  <button style= "margin: 0 auto;" id="usePass" type="button" onclick="usePassword();">Use This Password</button>
+</form>
+
+<form id="finalStep" style="display:none;" >
+	<button style="margin: 0 auto;" id="hideButton" type="button" onclick="beginHide();">Hide It!</button>
+    <button style="margin: 0 auto;" id="seekButton" type="button" onclick="beginSeek();">Seek It!</button>
+	<br>
+</form>
+
+<p id="outputED" style="display:none;"></p>
+
+<form id="outputControls" style="display:none;">
+		<button style = "margin: 0 auto;" type="button" onclick="showOutput();" id="showOut">Show</button>
+		<button style = "margin: 0 auto;" type="button" onclick="hideOutput();" id="hideOut">Hide</button>
+    <button style = "margin: 10px auto;" type="button" value="save" id="save">Save</button>
+</form>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/lib/alea.min.js">
+//Johannes Baagøe's extremely fast Alea PRNG
+//https://github.com/davidbau/seedrandom
+</script>
+
+<script>
+var contents = 'no file';
+var mode = 'off';
+var currentMode = 'nothing';
+var password = 'no pass';
+var outputStr = '';
+var cyphChars = 0;
+
+window.onload = function() {
+
+  document.getElementById('goBack').style.display = 'block'; 
+};
+
+function startOver() {
+   location.reload();
+}
+
+function wrapHide() {
+	if(mode == 'off')
+	{
+   		mode = 'hide';
+   		currentMode = 'Tell Me What You\'d Like To Hide';
+   		document.getElementById("modeSelect").style.display = "none";
+   		document.getElementById("startOver").style.display = "block";
+   		document.getElementById("currentMode").style.display = "block";
+   		document.getElementById("currentMode").innerHTML = currentMode;
+   		document.getElementById("filein").style.display = "block";
+	} else {
+		location.reload();
+	}
+}
+
+function wrapSeek() {
+	if(mode == 'off')
+	{
+   		mode = 'seek';
+   		currentMode = 'Tell Me What You\'d Like To Seek';
+   		document.getElementById("modeSelect").style.display = "none";
+   		document.getElementById("startOver").style.display = "block";
+   		document.getElementById("currentMode").style.display = "block";
+   		document.getElementById("currentMode").innerHTML = currentMode;
+   		document.getElementById("filein").style.display = "block";
+   	} else {
+		location.reload();
+	}
+}
+
+document.forms['filein'].elements['textbox'].onchange = function() {
+	contents = document.forms['filein'].elements['textbox'].value;
+    document.getElementById("changeAnything").style.display = "block";
+	document.getElementById("passSelect").style.display = "block";
+    document.getElementById('usePass').style.display = 'block';
+}
+
+function usePassword() {	
+    var entry = document.forms['passSelect'].elements['enterPass'].value;
+    if(entry.length > 6)
+    {
+    	document.getElementById("changeAnything").style.display = "none"
+    	document.getElementById("filein").style.display = "none";
+    	document.getElementById("passSelect").style.display = "none";
+    	password = entry;
+        document.getElementById('finalStep').style.display = 'block';
+        if(mode == 'hide')
+		{
+        	document.getElementById('hideButton').style.display = 'block';
+            document.getElementById('seekButton').style.display = 'none';
+            currentMode = 'Clear Text Is Ready To Be Hidden';
+        	document.getElementById("currentMode").innerHTML = currentMode;
+        } else if (mode == 'seek') {
+            document.getElementById('hideButton').style.display = 'none';
+            document.getElementById('seekButton').style.display = 'block';
+            currentMode = 'Cipher Text Is Ready To Be Seeked';
+        	document.getElementById("currentMode").innerHTML = currentMode;
+        } else {
+        	location.reload();
+        }
+    } else {
+    	window.alert('Password Must Be Greater Than 6 Digits');
+    }
+}
+
+function beginHide() {
+
+	currentMode = 'Hiding Clear Text...';
+    document.getElementById("currentMode").innerHTML = currentMode;
+
+	var queueClr = splitString(contents);
+    //var queueEncBin = [];
+    
+    //Johannes Baagøe's extremely fast Alea PRNG
+	//https://github.com/davidbau/seedrandom
+    var myrng = new alea(password);
+    
+    var encBuffer = "";
+    
+    for (var indChar = 0; indChar < contents.length; indChar++) 
+    {
+    	var intKey = Math.abs(myrng.int32());
+        var clear = queueClr.shift();
+        var enc = clear^intKey;
+        encStr = enc.toString(2);
+        entStrPadded = pad(encStr);
+        //queueEncBin.push(enc.toString(2));
+    	encBuffer = encBuffer + entStrPadded;
+    }
+
+	 currentMode = 'Encrypted Cypher Text Ready';
+    document.getElementById("currentMode").innerHTML = currentMode;
+    document.getElementById('finalStep').style.display = 'none';
+    document.getElementById('outputControls').style.display = 'block';
+    document.getElementById("save").style.display = "block"
+   	document.getElementById("outputED").innerHTML = encBuffer;
+   	document.getElementById('showOut').style.display = 'block';
+    document.getElementById('hideOut').style.display = 'none';
+   	outputStr = encBuffer;
+}
+
+function showOutput(){
+	document.getElementById('showOut').style.display = 'none';
+	document.getElementById('outputED').style.display = 'block';
+	document.getElementById('hideOut').style.display = 'block';
+}
+
+function hideOutput(){
+	document.getElementById('showOut').style.display = 'block';
+	document.getElementById('outputED').style.display = 'none';
+	document.getElementById('hideOut').style.display = 'none';
+}
+
+function pad(num){ 
+	size = 32;
+	return ('00000000000000000000000000000000' + num).substr(-size); 
+}
+
+function beginSeek() {
+
+	currentMode = 'Seeking Cypher Text...';
+    document.getElementById("currentMode").innerHTML = currentMode;
+
+	var queueCyph = chopBin(contents);
+    //var queueDecBin = [];
+    
+    //Johannes Baagøe's extremely fast Alea PRNG
+	//https://github.com/davidbau/seedrandom
+    var myrng = new alea(password);
+    
+    var decBuffer = "";
+    
+    for (var indChar = 0; indChar < cyphChars; indChar++) 
+    { 
+    	var intKey = Math.abs(myrng.int32());
+        var cyph = queueCyph.shift();
+        var dec = cyph^intKey;
+        //queueDecBin.push(String.fromCharCode(dec));
+        decBuffer = decBuffer + String.fromCharCode(dec);
+    }
+
+    currentMode = 'Decrypted Clear Text Ready';
+    document.getElementById("currentMode").innerHTML = currentMode;
+    document.getElementById('finalStep').style.display = 'none';
+    document.getElementById('outputControls').style.display = 'block';
+    document.getElementById("save").style.display = "block"
+   	document.getElementById("outputED").innerHTML = decBuffer;
+   	document.getElementById('showOut').style.display = 'block';
+    document.getElementById('hideOut').style.display = 'none';
+  	outputStr = decBuffer;  
+}
+
+function splitString(clearStr) {
+	var queueClear = [];
+
+	for (var ind = 0; ind < clearStr.length; ind++) 
+    {
+        queueClear.push(clearStr.charCodeAt(ind));
+    }
+    
+    return queueClear;
+
+}
+
+// Fix this so cypher text stream can be parsed into 32 bit pieces for decryption
+
+function chopBin(cyphStr){
+
+	var size = 32;
+	var queueClearParse = [];
+
+	for (var start = 0; start < cyphStr.length; start += size) 
+    {
+    	var snipString = cyphStr.substring(start, Math.min(cyphStr.length, start + size));
+
+    	var snipInt = parseInt(snipString, 2).toString(10);
+
+        queueClearParse.push(snipInt);
+
+        cyphChars++;
+    }
+
+    return queueClearParse;
+
+}
+
+// Modified slight from Maria Campbell's saveTextAsFile Github repo
+// https://interglobalmedia.github.io/the-cat-whisperer/
+function saveTextAsFile() {
+  var textToWrite = outputStr;
+  var textFileAsBlob = new Blob([ textToWrite ], { type: 'text/plain' });
+  var fileNameToSaveAs = "output.txt";
+
+  var downloadLink = document.createElement("a");
+  downloadLink.download = fileNameToSaveAs;
+  downloadLink.innerHTML = "Download File";
+  if (window.webkitURL != null) {
+    // Chrome allows the link to be clicked without actually adding it to the DOM.
+    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+  } else {
+    // Firefox requires the link to be added to the DOM before it can be clicked.
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+  }
+
+  downloadLink.click();
+}
+
+var button = document.getElementById('save');
+button.addEventListener('click', saveTextAsFile);
+
+function destroyClickedElement(event) {
+  // remove the link from the DOM
+  document.body.removeChild(event.target);
+}
+
+document.forms['filein'].elements['myfile'].onchange = function(evt) {
+    if(!window.FileReader) return; // Browser is not compatible
+
+    var reader = new FileReader();
+
+    reader.onload = function(evt) {
+        if(evt.target.readyState != 2) return;
+        if(evt.target.error) {
+            alert('Error while reading file');
+            return;
+        }
+
+        filecontent = evt.target.result;
+
+        contents = evt.target.result;
+
+        document.getElementById("passSelect").style.display = "block";
+        document.getElementById("changeAnything").style.display = "block";
+
+        document.forms['filein'].elements['textbox'].value = evt.target.result;
+    };
+
+    reader.readAsText(evt.target.files[0]);
+};
+</script>
+</body>
+</html>
